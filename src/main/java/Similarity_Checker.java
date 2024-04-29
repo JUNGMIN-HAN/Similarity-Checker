@@ -10,19 +10,17 @@ public class Similarity_Checker {
     public int getlengthScore() {
         int len1 = str1.length();
         int len2 = str2.length();
-        int gap, denominator;
 
         if (isTwiceMoreLengthDifference(len1, len2)) return 0;
 
-        if (len1 > len2) {
-            gap = len1 - len2;
-            denominator = len2;
-        } else {
-            gap = len2 - len1;
-            denominator = len1;
-        }
+        int gap = Math.abs(len1-len2);
+        int denominator = Math.min(len1, len2);
 
-        return (int) ((1 - (double) gap / denominator) * 60);
+        return getLengthSimilarityScore((double) gap, denominator);
+    }
+
+    private int getLengthSimilarityScore(double gap, int denominator) {
+        return (int) ((1 - gap / denominator) * 60);
     }
 
     private boolean isTwiceMoreLengthDifference(int len1, int len2) {
